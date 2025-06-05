@@ -1,0 +1,44 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = [
+  {
+    id: 1,
+    name: "Urban Hoodie",
+    price: "$49",
+    image: "data:image/jpeg;base64,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",
+  },
+  {
+    id: 2,
+    name: "Classic Denim",
+    price: "$69",
+    image: "https://freenotecloth.com/cdn/shop/products/untitled-28.jpg?v=1671127725&width=800",
+  },
+  {
+    id: 3,
+    name: "Minimal Tee",
+    price: "$29",
+    image: "https://downbeatproject.org/cdn/shop/files/mens-classic-tee-black-front-659e1c71af48c.jpg?v=1704860795&width=1946",
+  },
+];
+
+const bestSellersSlice = createSlice({
+  name: "bestSellers",
+  initialState,
+  reducers: {
+    addBestSeller: (state, action) => {
+      state.push(action.payload);
+    },
+    removeBestSeller: (state, action) => {
+      return state.filter((item) => item.id !== action.payload);
+    },
+    updateBestSeller: (state, action) => {
+      const index = state.findIndex((item) => item.id === action.payload.id);
+      if (index !== -1) {
+        state[index] = action.payload;
+      }
+    },
+  },
+});
+
+export const { addBestSeller, removeBestSeller, updateBestSeller } = bestSellersSlice.actions;
+export default bestSellersSlice.reducer;
