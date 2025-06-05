@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { FaRegUser } from "react-icons/fa";
 
 function Navbar() {
   return (
@@ -114,12 +115,7 @@ function Navbar() {
             role="button"
             className="btn btn-ghost btn-circle avatar"
           >
-            <div className="w-10 rounded-full">
-              <img
-                alt="User avatar"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              />
-            </div>
+            <FaRegUser size={20}/>
           </div>
           <ul
             tabIndex={0}
