@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { FaSearch } from "react-icons/fa";
 
 const Collection = () => {
   const [filters, setFilters] = useState({
@@ -19,6 +20,16 @@ const Collection = () => {
   return (
     <>
       <Navbar />
+      <div className="w-full max-w-md mx-auto mt-8">
+        <div className="flex items-center border border-neutral-300 rounded-full shadow-sm overflow-hidden px-4 py-2 bg-white">
+          <FaSearch className="text-neutral-500 mr-3" />
+          <input
+            type="text"
+            placeholder="Search for products..."
+            className="w-full outline-none bg-transparent text-neutral-800 placeholder-neutral-400"
+          />
+        </div>
+      </div>
       <div className="px-6 md:px-12 py-10">
         <h1 className="text-4xl font-bold text-center mb-10 text-neutral-800">
           Explore Our Collection
@@ -47,7 +58,9 @@ const Collection = () => {
 
             {/* Sort By */}
             <div className="flex items-center gap-3">
-              <label className="font-medium text-neutral-700 w-[9vw]">Sort by:</label>
+              <label className="font-medium text-neutral-700 w-[9vw]">
+                Sort by:
+              </label>
               <select
                 name="sort"
                 value={filters.sort}
