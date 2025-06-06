@@ -1,4 +1,7 @@
 import { User } from "../models/userSchema.js";
+import { Order } from "../models/orderSchema.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
   try {
