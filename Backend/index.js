@@ -5,12 +5,12 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./config/database.js";
 import userRoute from "./routes/userRoute.js";
+import productRoute from "./routes/productRoute.js";
 
 dotenv.config();
 const port = process.env.PORT || 3000;
 
 const app = express();
-const server = http.createServer(app);
 
 //middleware
 app.use(express.urlencoded({ extended: true }));
@@ -26,6 +26,7 @@ app.use(cors(corsOption));
 
 //routes
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/product", productRoute);
 
 app.listen(port, () => {
     connectDB();
