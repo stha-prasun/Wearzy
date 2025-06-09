@@ -6,6 +6,7 @@ import cors from "cors";
 import connectDB from "./config/database.js";
 import userRoute from "./routes/userRoute.js";
 import productRoute from "./routes/productRoute.js";
+import bestSellerRoute from "./routes/bestSellerRoute.js";
 
 dotenv.config();
 const port = process.env.PORT || 3000;
@@ -27,6 +28,7 @@ app.use(cors(corsOption));
 //routes
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/product", productRoute);
+app.use("/api/v1/bestseller", bestSellerRoute);
 
 app.listen(port, () => {
     connectDB();

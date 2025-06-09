@@ -3,22 +3,22 @@ import { Product } from "../models/productSchema.js";
 
 export const addBestSeller = async (req, res) => {
   try {
-    const { productId } = req.body;
+    const { id } = req.body;
 
-    const product = BestSeller.findById(productId);
+    const product = await Product.findById(id);
 
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    const alreadyExists = await BestSeller.findOne({ product: productId });
+    const alreadyExists = await BestSeller.findOne({ product: id });
     if (alreadyExists) {
       return res
         .status(400)
         .json({ message: "Product already marked as best seller" });
     }
 
-    await BestSeller.create({ product: productId });
+    await BestSeller.create({ product: id });
 
     res.status(201).json({ success: true, message: "Added to best sellers" });
   } catch (error) {
