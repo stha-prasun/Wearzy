@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { FaSearch } from "react-icons/fa";
+import useGetProducts from "../hooks/useGetProducts";
 
 const Collection = () => {
   const [filters, setFilters] = useState({
@@ -17,6 +18,8 @@ const Collection = () => {
     setFilters({ ...filters, category });
   };
 
+  useGetProducts();
+  
   return (
     <>
       <Navbar />
