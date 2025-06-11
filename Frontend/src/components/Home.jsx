@@ -4,8 +4,10 @@ import Hero from './Hero'
 import Features from './Features'
 import NewsLetter from './NewsLetter'
 import Footer from './Footer'
+import usegetBestSeller from '../hooks/usegetBestSeller'
 
 const Home = () => {
+  usegetBestSeller();
   return (
     <div>
       <Navbar/>

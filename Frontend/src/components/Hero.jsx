@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const Hero = () => {
 
-    const bestSellers = useSelector((state) => state.bestSellers);
+    const bestSellers = useSelector((state) => state?.bestSellers?.bestSeller);
     
   return (
     <div className="font-sans bg-neutral-50 text-neutral-900">
@@ -35,21 +35,21 @@ const Hero = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {bestSellers.map((item) => (
             <div
-            key={item.id}
+            key={item._id}
               className="card bg-white rounded-xl shadow-md hover:shadow-xl transition-all"
             >
               <figure className="h-60 overflow-hidden">
                 <img
-                  src={item.image}
-                  alt={item.name}
+                  src={item?.product?.image}
+                  alt={item?.product?.name}
                   className="w-full h-full object-contain"
                 />
               </figure>
               <div className="card-body">
-                <h3 className="text-lg font-semibold">{item.name}</h3>
-                <p className="text-indigo-600 font-medium">{item.price}</p>
+                <h3 className="text-lg font-semibold">{item?.product?.name}</h3>
+                <p className="text-indigo-600 font-medium">{item?.product?.price}</p>
                 <div className="card-actions justify-end">
-                  <Link to={`/product/${item.id}`}>
+                  <Link to={`/product/${item.product?._id}`}>
                     <button className="btn btn-outline btn-sm">View</button>
                   </Link>
                 </div>
