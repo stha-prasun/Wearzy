@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Home from "./components/Home";
 import Collection from "./components/Collection";
+import ProductDetails from "./components/ProductDetails";
 
 const App = () => {
   const appRouter = createBrowserRouter([
@@ -22,6 +23,10 @@ const App = () => {
     {
       path: "/collection",
       element: <Collection />,
+    },
+    {
+      path: "/product/details/:id",
+      element: <ProductDetails />,
     },
   ]);
   return (

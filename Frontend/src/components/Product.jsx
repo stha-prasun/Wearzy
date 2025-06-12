@@ -1,6 +1,32 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { PRODUCT_API_ENDPOINT } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { setProduct } from "../redux/productDetails";
+import axios from "axios";
 
 const Product = ({ product }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleClick = async (id) => {
+    try {
+      const res = await axios.get(`${PRODUCT_API_ENDPOINT}/getproduct/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
+
+      if (res.data.success) {
+        dispatch(setProduct(res.data.product));
+        navigate(`/product/details/${id}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="card bg-base-100 w-96 shadow-sm">
       <figure className="h-64 w-full overflow-hidden">
@@ -16,7 +42,14 @@ const Product = ({ product }) => {
           ${product?.price}
         </p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
+          <button
+            onClick={() => {
+              handleClick(product?._id);
+            }}
+            className="btn btn-primary"
+          >
+            View Details
+          </button>
         </div>
       </div>
     </div>

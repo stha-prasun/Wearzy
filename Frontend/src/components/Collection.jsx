@@ -24,8 +24,6 @@ const Collection = () => {
 
   const products = useSelector((store) => store.Products.products);
 
-  console.log(products);
-
   return (
     <>
       <Navbar />
