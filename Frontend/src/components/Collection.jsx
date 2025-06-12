@@ -3,6 +3,8 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { FaSearch } from "react-icons/fa";
 import useGetProducts from "../hooks/useGetProducts";
+import { useSelector } from "react-redux";
+import Product from "./Product";
 
 const Collection = () => {
   const [filters, setFilters] = useState({
@@ -19,7 +21,11 @@ const Collection = () => {
   };
 
   useGetProducts();
-  
+
+  const products = useSelector((store) => store.Products.products);
+
+  console.log(products);
+
   return (
     <>
       <Navbar />
@@ -81,10 +87,9 @@ const Collection = () => {
 
         {/* Products Grid Placeholder */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {/* Render filtered products here */}
-          <div className="bg-white rounded-xl shadow-md p-4 h-40 flex items-center justify-center text-neutral-500 border">
-            Products will show here based on filter
-          </div>
+          {products.map((item) => (
+            <Product key={item._id} product={item} />
+          ))}
         </div>
       </div>
       <Footer />
