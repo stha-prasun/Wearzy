@@ -3,7 +3,7 @@ import { FaExchangeAlt, FaHeadset, FaUndoAlt } from "react-icons/fa";
 
 const Features = () => {
   return (
-    <section className="bg-white py-16 px-6 md:px-12 text-neutral-900">
+    <section className="bg-white py-16 px-6 md:px-12 text-neutral-900 hover:cursor-default">
       <h2 className="text-3xl font-bold text-center mb-12">Why Shop With Wearzy?</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center">
 
