@@ -47,9 +47,9 @@ const Hero = () => {
               </figure>
               <div className="card-body">
                 <h3 className="text-lg font-semibold">{item?.product?.name}</h3>
-                <p className="text-indigo-600 font-medium">{item?.product?.price}</p>
+                <p className="text-indigo-600 font-medium">${item?.product?.price}</p>
                 <div className="card-actions justify-end">
-                  <Link to={`/product/${item.product?._id}`}>
+                  <Link to={`/product/details/${item.product?._id}`}>
                     <button className="btn btn-outline btn-sm">View</button>
                   </Link>
                 </div>
