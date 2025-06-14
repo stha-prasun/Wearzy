@@ -113,7 +113,10 @@ function Navbar() {
                   {user?.orders?.length || 0} Items
                 </span>
                 <div className="card-actions">
-                  <button onClick={()=>navigate("/orders")} className="btn btn-primary btn-block">
+                  <button
+                    onClick={() => navigate("/orders")}
+                    className="btn btn-primary btn-block"
+                  >
                     View Orders
                   </button>
                 </div>
@@ -143,15 +146,27 @@ function Navbar() {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li>
-              <NavLink to="/profile">{user?.fullname}</NavLink>
-            </li>
+            {!user ? (
+              <li>
+                <NavLink to="/">Wearzy Home</NavLink>
+              </li>
+            ) : (
+              <li>
+                <NavLink to="/profile">{user?.fullname}</NavLink>
+              </li>
+            )}
             <li>
               <NavLink to="/settings">Settings</NavLink>
             </li>
-            <li>
-              <NavLink to="/logout">Logout</NavLink>
-            </li>
+            {!user ? (
+              <li>
+                <NavLink to="/login">Login</NavLink>
+              </li>
+            ) : (
+              <li>
+                <NavLink to="/logout">Logout</NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </div>
