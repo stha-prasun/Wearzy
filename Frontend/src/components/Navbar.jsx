@@ -1,11 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { MdAdminPanelSettings } from "react-icons/md";
 
 function Navbar() {
   const user = useSelector((store) => store.User.user);
+  const navigate = useNavigate();
 
   return (
     <div className="navbar bg-base-100 shadow-sm pr-[20px]">
@@ -112,8 +113,8 @@ function Navbar() {
                   {user?.orders?.length || 0} Items
                 </span>
                 <div className="card-actions">
-                  <button className="btn btn-primary btn-block">
-                    View cart
+                  <button onClick={()=>navigate("/orders")} className="btn btn-primary btn-block">
+                    View Orders
                   </button>
                 </div>
               </div>

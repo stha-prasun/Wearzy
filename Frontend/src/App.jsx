@@ -5,6 +5,7 @@ import Collection from "./components/Collection";
 import ProductDetails from "./components/ProductDetails";
 import Login from "./components/auth/login";
 import Signup from "./components/auth/Signup";
+import MyOrders from "./components/MyOrders";
 
 const App = () => {
   const appRouter = createBrowserRouter([
@@ -27,6 +28,10 @@ const App = () => {
     {
       path: "/signup",
       element: <Signup />,
+    },
+    {
+      path: "/orders",
+      element: <MyOrders />,
     },
   ]);
   return (
