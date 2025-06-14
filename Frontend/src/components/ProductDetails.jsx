@@ -16,7 +16,7 @@ const ProductDetails = () => {
 
   const handlePlaceOrder = async () => {
     if (!userId) {
-      toast.error("Please login before placing order");
+      return toast.error("Please login before placing order");
     }
     
     const orderPayload = {
