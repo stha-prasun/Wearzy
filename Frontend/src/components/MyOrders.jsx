@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Navbar from "./Navbar";
+import { useNavigate } from "react-router-dom";
 
 const statusColor = {
   Processing: "badge-primary",
@@ -11,7 +12,13 @@ const statusColor = {
 };
 
 const MyOrders = () => {
+  const navigate = useNavigate();
+
   const user = useSelector((store) => store.User.user);
+
+  if (!user) {
+    navigate("/login");
+  }
 
   return (
     <>
