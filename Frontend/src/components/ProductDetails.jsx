@@ -12,9 +12,13 @@ const ProductDetails = () => {
   const [size, setSize] = useState("M");
   const [paymentMethod, setPaymentMethod] = useState("COD");
 
-  const userId = useSelector((store) => store.User.user);
+  const userId = useSelector((store) => store?.User?.user?._id);
 
   const handlePlaceOrder = async () => {
+    if (!userId) {
+      toast.error("Please login before placing order");
+    }
+    
     const orderPayload = {
       user: userId,
       orderItems: [

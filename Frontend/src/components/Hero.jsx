@@ -1,9 +1,32 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setProduct } from "../redux/productDetails";
+import axios from "axios";
+import { PRODUCT_API_ENDPOINT } from "../utils/constants";
 const Hero = () => {
 
     const bestSellers = useSelector((state) => state?.bestSellers?.bestSeller);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleClick = async (id) => {
+    try {
+      const res = await axios.get(`${PRODUCT_API_ENDPOINT}/getproduct/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
+
+      if (res.data.success) {
+        dispatch(setProduct(res.data.product));
+        navigate(`/product/details/${id}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
     
   return (
     <div className="font-sans bg-neutral-50 text-neutral-900">
@@ -49,9 +72,7 @@ const Hero = () => {
                 <h3 className="text-lg font-semibold">{item?.product?.name}</h3>
                 <p className="text-indigo-600 font-medium">${item?.product?.price}</p>
                 <div className="card-actions justify-end">
-                  <Link to={`/product/details/${item.product?._id}`}>
-                    <button className="btn btn-outline btn-sm">View</button>
-                  </Link>
+                    <button onClick={()=>handleClick(item?.product?._id)} className="btn btn-outline btn-sm">View</button>
                 </div>
               </div>
             </div>
