@@ -48,10 +48,17 @@ export const updateOrderStatus = async (req, res) => {
     order.orderStatus = status;
     await order.save();
 
-    res
-      .status(200)
-      .json({ success: true, message: "Order status updated" });
+    res.status(200).json({ success: true, message: "Order status updated" });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find();
+    res.status(200).json({ success: true, orders });
+  } catch (error) {
+    console.log(error);
   }
 };
