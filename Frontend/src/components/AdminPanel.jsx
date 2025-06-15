@@ -4,9 +4,29 @@ import { useSelector } from "react-redux";
 import useGetOrders from "../hooks/useGetOrders";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { BESTSELLER_API_ENDPOINT } from "../utils/constants";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const AdminPanel = () => {
   useGetOrders();
+
+  const handleAddBestSeller = async (id) =>{
+    try {
+      const response = await axios.post(
+        `${BESTSELLER_API_ENDPOINT}/add`,
+        { id },
+        { withCredentials: true }
+      );
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  }
 
   const navigate = useNavigate();
   const bestSellers = useSelector((store) => store?.bestSellers?.bestSeller);
@@ -62,11 +82,42 @@ const AdminPanel = () => {
                     ${item?.product?.price}
                   </p>
                   <div className="flex gap-2">
-                    <button className="btn btn-sm btn-success">
+                    <button onClick={()=>{handleAddBestSeller(item?.product?._id)}} className="btn btn-sm btn-success">
                       Add to Best Seller
                     </button>
                     <button className="btn btn-sm btn-outline btn-error">
                       Remove
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+              All Products
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {bestSellers.map((item) => (
+                <div
+                  key={item?.product?._id}
+                  className="bg-white rounded-xl shadow-sm p-4 hover:shadow-md transition"
+                >
+                  <img
+                    src={item?.product?.image}
+                    alt="Product"
+                    className="w-full h-48 object-contain mb-4"
+                  />
+                  <h3 className="font-semibold text-gray-800">
+                    {item?.product?.name}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-3">
+                    ${item?.product?.price}
+                  </p>
+                  <div className="flex gap-2">
+                    <button onClick={()=>{handleAddBestSeller(item?.product?._id)}} className="btn btn-sm btn-success">
+                      Add to Best Seller
                     </button>
                   </div>
                 </div>
