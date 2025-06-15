@@ -6,6 +6,7 @@ import ProductDetails from "./components/ProductDetails";
 import Login from "./components/auth/login";
 import Signup from "./components/auth/Signup";
 import MyOrders from "./components/MyOrders";
+import AdminPanel from "./components/AdminPanel";
 
 const App = () => {
   const appRouter = createBrowserRouter([
@@ -32,6 +33,10 @@ const App = () => {
     {
       path: "/orders",
       element: <MyOrders />,
+    },
+    {
+      path: "/admin",
+      element: <AdminPanel />,
     },
   ]);
   return (

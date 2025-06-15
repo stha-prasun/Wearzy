@@ -126,7 +126,7 @@ function Navbar() {
         )}
 
         {user?.role == "admin" && (
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+          <div onClick={()=>navigate("/admin")} tabIndex={0} role="button" className="btn btn-ghost btn-circle">
             <div className="indicator">
               <MdAdminPanelSettings size={28} />
             </div>
