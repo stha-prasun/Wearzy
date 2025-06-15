@@ -82,9 +82,6 @@ const AdminPanel = () => {
                     ${item?.product?.price}
                   </p>
                   <div className="flex gap-2">
-                    <button onClick={()=>{handleAddBestSeller(item?.product?._id)}} className="btn btn-sm btn-success">
-                      Add to Best Seller
-                    </button>
                     <button className="btn btn-sm btn-outline btn-error">
                       Remove
                     </button>
