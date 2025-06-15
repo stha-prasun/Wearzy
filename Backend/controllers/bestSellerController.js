@@ -15,7 +15,7 @@ export const addBestSeller = async (req, res) => {
     if (alreadyExists) {
       return res
         .status(400)
-        .json({ message: "Product already marked as best seller" });
+        .json({ success: false, message: "Product already marked as best seller" });
     }
 
     await BestSeller.create({ product: id });
