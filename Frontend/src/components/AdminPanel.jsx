@@ -1,8 +1,11 @@
 import { FaStar, FaClipboardList } from "react-icons/fa";
 import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
+import useGetOrders from "../hooks/useGetOrders";
 
 const AdminPanel = () => {
+  useGetOrders();
+  
   const bestSellers = useSelector((store) => store?.bestSellers?.bestSeller);
   return (
     <>
