@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { BESTSELLER_API_ENDPOINT } from "../utils/constants";
 import axios from "axios";
 import toast from "react-hot-toast";
+import useGetProducts from "../hooks/useGetProducts";
 
 const AdminPanel = () => {
   useGetOrders();
@@ -29,7 +30,10 @@ const AdminPanel = () => {
   };
 
   const navigate = useNavigate();
+  useGetProducts();
+  
   const bestSellers = useSelector((store) => store?.bestSellers?.bestSeller);
+  const products = useSelector((store)=>store?.Products?.products);
   const user = useSelector((store) => store.User.user);
   const orders = useSelector((store) => store.Orders.orders);
 
@@ -96,26 +100,26 @@ const AdminPanel = () => {
               All Products
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {bestSellers.map((item) => (
+              {products.map((item) => (
                 <div
-                  key={item?.product?._id}
+                  key={item?._id}
                   className="bg-white rounded-xl shadow-sm p-4 hover:shadow-md transition"
                 >
                   <img
-                    src={item?.product?.image}
+                    src={item?.image}
                     alt="Product"
                     className="w-full h-48 object-contain mb-4"
                   />
                   <h3 className="font-semibold text-gray-800">
-                    {item?.product?.name}
+                    {item?.name}
                   </h3>
                   <p className="text-gray-600 text-sm mb-3">
-                    ${item?.product?.price}
+                    ${item?.price}
                   </p>
                   <div className="flex gap-2">
                     <button
                       onClick={() => {
-                        handleAddBestSeller(item?.product?._id);
+                        handleAddBestSeller(item?._id);
                       }}
                       className="btn btn-sm btn-success"
                     >
