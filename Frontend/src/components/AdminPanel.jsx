@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 const AdminPanel = () => {
   useGetOrders();
 
-  const handleAddBestSeller = async (id) =>{
+  const handleAddBestSeller = async (id) => {
     try {
       const response = await axios.post(
         `${BESTSELLER_API_ENDPOINT}/add`,
@@ -26,12 +26,12 @@ const AdminPanel = () => {
       console.log(error);
       toast.error(error.response.data.message);
     }
-  }
+  };
 
   const navigate = useNavigate();
   const bestSellers = useSelector((store) => store?.bestSellers?.bestSeller);
   const user = useSelector((store) => store.User.user);
-  const orders = useSelector((store)=>store.Orders.orders);
+  const orders = useSelector((store) => store.Orders.orders);
 
   useEffect(() => {
     if (!user || user?.role != "admin") {
@@ -113,7 +113,12 @@ const AdminPanel = () => {
                     ${item?.product?.price}
                   </p>
                   <div className="flex gap-2">
-                    <button onClick={()=>{handleAddBestSeller(item?.product?._id)}} className="btn btn-sm btn-success">
+                    <button
+                      onClick={() => {
+                        handleAddBestSeller(item?.product?._id);
+                      }}
+                      className="btn btn-sm btn-success"
+                    >
                       Add to Best Seller
                     </button>
                   </div>
@@ -140,21 +145,28 @@ const AdminPanel = () => {
                   </tr>
                 </thead>
                 <tbody className="text-gray-800">
-                  {orders.map((item)=>(
+                  {orders.map((item) => (
                     <tr key={item?._id} className="hover:bg-gray-50">
                       <td>{item?._id}</td>
                       <td>{item?.user}</td>
                       <td>${item?.totalPrice}</td>
                       <td>
-                        <span className="badge badge-info">{item?.orderStatus}</span>
+                        <span className="badge badge-info">
+                          {item?.orderStatus}
+                        </span>
                       </td>
                       <td>{item?.paymentMethod}</td>
                       <td>
-                        <select className="select select-sm select-bordered">
-                          <option>Processing</option>
-                          <option>Shipped</option>
-                          <option>Delivered</option>
-                        </select>
+                        <div className="flex items-center gap-3 p-2">
+                          <select className="select select-sm select-bordered">
+                            <option>Processing</option>
+                            <option>Shipped</option>
+                            <option>Delivered</option>
+                          </select>
+                          <button className="btn btn-outline btn-sm btn-primary">
+                            Details
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
