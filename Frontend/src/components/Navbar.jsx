@@ -1,12 +1,37 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MdAdminPanelSettings } from "react-icons/md";
+import { USER_API_ENDPOINT } from "../utils/constants";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { setUser } from "../redux/user";
 
 function Navbar() {
   const user = useSelector((store) => store.User.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handlelogout = async ()=>{
+    try {
+      const res = await axios.get(`${USER_API_ENDPOINT}/logout`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
+
+      if (res.data.success) {
+        toast.success(res.data.message);
+        dispatch(setUser(null));
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  }
 
   return (
     <div className="navbar bg-base-100 shadow-sm pr-[20px]">
@@ -164,7 +189,7 @@ function Navbar() {
               </li>
             ) : (
               <li>
-                <NavLink to="/logout">Logout</NavLink>
+                <button onClick={handlelogout}>Logout</button>
               </li>
             )}
           </ul>
