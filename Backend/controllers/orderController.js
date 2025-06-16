@@ -62,3 +62,21 @@ export const getAllOrders = async (req, res) => {
     console.log(error);
   }
 };
+
+export const getOrderById = async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    const order = await Order.findById(id);
+
+    if (!order) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Order not found" });
+    }
+
+    res.status(200).json({ success: true, order });
+  } catch (error) {
+    console.log(error);
+  }
+};
