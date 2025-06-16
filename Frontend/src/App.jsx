@@ -7,6 +7,7 @@ import Login from "./components/auth/login";
 import Signup from "./components/auth/Signup";
 import MyOrders from "./components/MyOrders";
 import AdminPanel from "./components/AdminPanel";
+import OrderDetails from "./components/OrderDetails";
 
 const App = () => {
   const appRouter = createBrowserRouter([
@@ -37,6 +38,10 @@ const App = () => {
     {
       path: "/admin",
       element: <AdminPanel />,
+    },
+    {
+      path: "/admin/order/detail/:id",
+      element: <OrderDetails />,
     },
   ]);
   return (

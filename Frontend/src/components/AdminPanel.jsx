@@ -46,6 +46,14 @@ const AdminPanel = () => {
     }
   };
 
+  const handleDetails = async (id)=>{
+    try {
+      navigate(`/admin/order/detail/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const navigate = useNavigate();
   useGetProducts();
 
@@ -185,7 +193,7 @@ const AdminPanel = () => {
                             <option>Shipped</option>
                             <option>Delivered</option>
                           </select>
-                          <button className="btn btn-outline btn-sm btn-primary">
+                          <button onClick={()=>handleDetails(item?._id)} className="btn btn-outline btn-sm btn-primary">
                             Details
                           </button>
                         </div>
