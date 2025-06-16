@@ -8,6 +8,7 @@ import { BESTSELLER_API_ENDPOINT } from "../utils/constants";
 import axios from "axios";
 import toast from "react-hot-toast";
 import useGetProducts from "../hooks/useGetProducts";
+import usegetBestSeller from "../hooks/usegetBestSeller";
 
 const AdminPanel = () => {
   useGetOrders();
@@ -29,11 +30,27 @@ const AdminPanel = () => {
     }
   };
 
+  const handleRemove = async (id) => {
+    try {
+      const response = await axios.delete(`${BESTSELLER_API_ENDPOINT}/remove`, {
+        data: { id },
+        withCredentials: true,
+      });
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  };
+
   const navigate = useNavigate();
   useGetProducts();
-  
+
   const bestSellers = useSelector((store) => store?.bestSellers?.bestSeller);
-  const products = useSelector((store)=>store?.Products?.products);
+  const products = useSelector((store) => store?.Products?.products);
   const user = useSelector((store) => store.User.user);
   const orders = useSelector((store) => store.Orders.orders);
 
@@ -86,7 +103,12 @@ const AdminPanel = () => {
                     ${item?.product?.price}
                   </p>
                   <div className="flex gap-2">
-                    <button className="btn btn-sm btn-outline btn-error">
+                    <button
+                      onClick={() => {
+                        handleRemove(item?._id);
+                      }}
+                      className="btn btn-sm btn-outline btn-error"
+                    >
                       Remove
                     </button>
                   </div>
@@ -110,12 +132,8 @@ const AdminPanel = () => {
                     alt="Product"
                     className="w-full h-48 object-contain mb-4"
                   />
-                  <h3 className="font-semibold text-gray-800">
-                    {item?.name}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-3">
-                    ${item?.price}
-                  </p>
+                  <h3 className="font-semibold text-gray-800">{item?.name}</h3>
+                  <p className="text-gray-600 text-sm mb-3">${item?.price}</p>
                   <div className="flex gap-2">
                     <button
                       onClick={() => {
