@@ -6,7 +6,7 @@ import axios from "axios";
 
 const OrderDetails = () => {
   const { id } = useParams();
-  const [Order, setOrder] = useState();
+  const [order, setOrder] = useState(null);
 
   useEffect(() => {
     const handleCall = async () => {
@@ -15,8 +15,8 @@ const OrderDetails = () => {
           withCredentials: true,
         });
 
-        if (response.data.success) {
-          console.log(response.data.order);
+        if (response?.data?.success) {
+          setOrder(response?.data?.order);
         }
       } catch (error) {
         console.log(error);
@@ -24,32 +24,6 @@ const OrderDetails = () => {
     };
     handleCall();
   }, [id]);
-
-  const order = {
-    _id: "ORD123456",
-    createdAt: "2025-06-11T03:41:10.319Z",
-    updatedAt: "2025-06-11T07:38:12.428Z",
-    paymentMethod: "COD",
-    totalPrice: 39.98,
-    orderStatus: "Shipped",
-    user: {
-      fullname: "Prasun Shrestha",
-      _id: "123",
-    },
-    orderItems: [
-      {
-        quantity: 2,
-        size: "L",
-        product: {
-          _id: "6846642f8c8873171ac115e0",
-          name: "Casual Cotton T-Shirt",
-          price: 19.99,
-          image:
-            "https://images.unsplash.com/photo-1585386959984-a415522de06e?auto=format&fit=crop&w=400&q=80",
-        },
-      },
-    ],
-  };
 
   return (
     <>
@@ -64,27 +38,27 @@ const OrderDetails = () => {
           <div className="flex justify-between flex-wrap text-gray-800">
             <div>
               <h2 className="font-semibold text-md">Order ID</h2>
-              <p>{order._id}</p>
+              <p>{order?._id}</p>
             </div>
             <div>
               <h2 className="font-semibold text-md">Order Date</h2>
-              <p>{new Date(order.createdAt).toLocaleString()}</p>
+              <p>{new Date(order?.createdAt).toLocaleString()}</p>
             </div>
             <div>
               <h2 className="font-semibold text-md">Status</h2>
-              <span className="badge badge-info">{order.orderStatus}</span>
+              <span className="badge badge-info">{order?.orderStatus}</span>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t mt-4">
             <div>
               <h3 className="font-medium text-gray-800">Customer</h3>
-              <p>{order.user?.fullname}</p>
+              <p>{order?.user?.fullname}</p>
               <p className="text-sm text-gray-500">{order?.user?._id}</p>
             </div>
             <div>
               <h3 className="font-medium text-gray-800">Payment Method</h3>
-              <p>{order.paymentMethod}</p>
+              <p>{order?.paymentMethod}</p>
             </div>
           </div>
         </div>
@@ -95,25 +69,27 @@ const OrderDetails = () => {
             Ordered Items
           </h2>
           <div className="space-y-4">
-            {order.orderItems.map((item, idx) => (
+            {order?.orderItems?.map((item) => (
               <div
-                key={idx}
+                key={item?.product?._id}
                 className="flex items-center justify-between border-b pb-4"
               >
                 <div className="flex gap-4">
-                  <img
-                    src={item.product.image}
-                    alt={item.product.name}
-                    className="w-20 h-20 object-contain rounded"
-                  />
-                  <div>
-                    <h3 className="text-md font-semibold text-gray-800">
-                      {item.product.name}
-                    </h3>
-                    <p className="text-sm text-gray-500">
-                      Size: {item.size} | Quantity: {item.quantity}
-                    </p>
-                  </div>
+                  <>
+                    <img
+                      src={item?.product?.image}
+                      alt={item?.product?.name}
+                      className="w-20 h-20 object-contain rounded"
+                    />
+                    <div>
+                      <h3 className="text-md font-semibold text-gray-800">
+                        {item?.product?.name}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        Size: {item?.size} | Quantity: {item?.quantity}
+                      </p>
+                    </div>
+                  </>
                 </div>
               </div>
             ))}
@@ -125,7 +101,7 @@ const OrderDetails = () => {
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Total</h2>
           <div className="flex justify-between text-gray-700 text-lg font-medium">
             <span>Total Price</span>
-            <span>${order.totalPrice}</span>
+            <span>${order?.totalPrice}</span>
           </div>
         </div>
       </div>
