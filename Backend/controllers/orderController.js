@@ -1,5 +1,6 @@
 import { Order } from "../models/orderSchema.js";
 import { User } from "../models/userSchema.js";
+import { Product } from "../models/productSchema.js";
 
 export const createOrder = async (req, res) => {
   try {
@@ -65,9 +66,11 @@ export const getAllOrders = async (req, res) => {
 
 export const getOrderById = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
 
-    const order = await Order.findById(id);
+    const order = await Order.findById(id)
+      .populate("user", "fullname _id")
+      .populate("orderItems.product");
 
     if (!order) {
       return res
