@@ -8,6 +8,7 @@ import Signup from "./components/auth/Signup";
 import MyOrders from "./components/MyOrders";
 import AdminPanel from "./components/AdminPanel";
 import OrderDetails from "./components/OrderDetails";
+import About from "./components/About";
 
 const App = () => {
   const appRouter = createBrowserRouter([
@@ -42,6 +43,10 @@ const App = () => {
     {
       path: "/admin/order/detail/:id",
       element: <OrderDetails />,
+    },
+    {
+      path: "/about",
+      element: <About />,
     },
   ]);
   return (
